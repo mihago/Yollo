@@ -1,0 +1,2 @@
+# Yollo
+Your minimalistc kanban
