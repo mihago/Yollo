@@ -1,8 +1,48 @@
-import { useId } from "react";
+import { useState } from "react";
 import Card from "./Card";
 import Header from "./Header";
 import AddCard from "./AddCard";
+import AddCardInput from "./AddCardInput";
 function Column(props) {
-  return <><div className="column"><Header>{props.header}</Header>{props.items.map((element) => <Card name={element.name} key = {element.id}/>)}<AddCard/></div></>;
+  let [isAdding, setIsAdding] = useState(false);
+
+  let cards = [];
+  for (let i of props.items.keys())
+    cards.push(<Card key={i} name={props.items.get(i).name} handleCompleting ={()=>{props.handleCompleting(i)}} handleDeleting = {()=>{props.handleCardDeleting(i)}} completed ={props.items.get(i).completed} />);
+
+  return (
+    <>
+      <div className="column">
+        <Header handleClick={() => {
+              setIsAdding(!isAdding);
+            }}>{props.header}</Header>
+        {cards}
+
+        {isAdding ? (
+          <AddCardInput
+            handleCancelling={() => {
+              setIsAdding(!isAdding);
+            }}
+            handleCardAdding={(value) => {
+              if(!value){
+                alert("Введите что-нибудь");
+              }
+              else{
+                props.handleCardAdding(value);
+                setIsAdding(!isAdding)
+              }
+              ;
+            }}
+          />
+        ) : (
+          <AddCard
+            handleClick={() => {
+              setIsAdding(!isAdding);
+            }}
+          />
+        )}
+      </div>
+    </>
+  );
 }
 export default Column;
