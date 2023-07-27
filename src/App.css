@@ -7,6 +7,14 @@
   display: flex;
   gap:48px;/*(1)*/
 }
+.useContextMenu_ContextMenu {
+  background-color: white !important;
+
+
+}
+.useContextMenu_ContextMenuItem {
+color: black !important;
+}
 .AddColumn{
   display: flex;
   align-items: center;
@@ -121,13 +129,19 @@ justify-content: space-between;
   font-style: italic;
   font-size: 24px;
   font-weight: 600;
-  padding: 8px 12px 8px 24px;
+  padding: 8px 4px 8px 24px;
   background-color: rgb(115, 235, 115);
 }
 .Header__img{
 width: 32px;
 height: 32px;
+background-color: rgb(115, 235, 115);
 }
+.Header__img:hover{
+  width: 32px;
+  height: 32px;
+  background-color: rgb(103, 215, 103);
+  }
 .AddCardInput{
   margin-top: 24px;
   font-style: normal;

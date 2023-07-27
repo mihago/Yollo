@@ -3,19 +3,47 @@ import Card from "./Card";
 import Header from "./Header";
 import AddCard from "./AddCard";
 import AddCardInput from "./AddCardInput";
+import "use-context-menu/styles.css";
+import { useContextMenu, ContextMenuItem } from "use-context-menu";
 function Column(props) {
   let [isAdding, setIsAdding] = useState(false);
 
+  const { contextMenu, onContextMenu, onKeyDown } = useContextMenu(
+    <>
+      <ContextMenuItem onSelect={props.handleColumnDeleting}>
+        Удалить Столбец
+      </ContextMenuItem>
+    </>
+  );
+
   let cards = [];
   for (let i of props.items.keys())
-    cards.push(<Card key={i} name={props.items.get(i).name} handleCompleting ={()=>{props.handleCompleting(i)}} handleDeleting = {()=>{props.handleCardDeleting(i)}} completed ={props.items.get(i).completed} />);
+    cards.push(
+      <Card
+        key={i}
+        name={props.items.get(i).name}
+        handleCompleting={() => {
+          props.handleCompleting(i);
+        }}
+        handleDeleting={() => {
+          props.handleCardDeleting(i);
+        }}
+        completed={props.items.get(i).completed}
+      />
+    );
 
   return (
     <>
       <div className="column">
-        <Header handleClick={() => {
-              setIsAdding(!isAdding);
-            }}>{props.header}</Header>
+        <Header
+          handleClick={() => {
+            setIsAdding(!isAdding);
+          }}
+          onMenu={onContextMenu}
+          onKeyDown={onKeyDown}
+        >
+          {props.header} {contextMenu}
+        </Header>
         {cards}
 
         {isAdding ? (
@@ -24,14 +52,12 @@ function Column(props) {
               setIsAdding(!isAdding);
             }}
             handleCardAdding={(value) => {
-              if(!value){
+              if (!value) {
                 alert("Введите что-нибудь");
-              }
-              else{
+              } else {
                 props.handleCardAdding(value);
-                setIsAdding(!isAdding)
+                setIsAdding(!isAdding);
               }
-              ;
             }}
           />
         ) : (
