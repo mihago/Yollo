@@ -1,11 +1,10 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import AddColumn from "./AddColumn";
 import {DndContext} from '@dnd-kit/core';
 import "./App.css";
 import Column from "./Column";
 import AddColumnInput from "./AddColumnInput";
 import Droppable from "./Droppable";
-
 function App() {
   let [data, setData] = useState({
     
@@ -30,8 +29,6 @@ function App() {
     fetchData();
 
   }, []);
- 
-  let [isEditing, setIsEditing] = useState(false);
   let [isColumnAdding, setIsColumAdding] = useState(false);
   function postData(datai){
     let postData = structuredClone(datai);
@@ -160,7 +157,6 @@ function App() {
           }}
           handleCompleting={(key) => {
             handleCompleting(ColumnKey, key);
-            console.log("ggggg");
           }}
           handleColumnDeleting={() => {
             handleColumnDeleting(ColumnKey);
@@ -170,7 +166,7 @@ function App() {
       );
     }
     catch(e){
-console.log("Catched");
+        console.log("Catched",e);
     }
 
     
@@ -179,7 +175,7 @@ console.log("Catched");
 
   return (
     //TODO:Handle adding
-    <div className="App">
+    <div className="App" style={{width:Math.max(columns.length*300+300,window.screen.availWidth),height:"inherit",overflow:"hidden"}}>
       <DndContext onDragEnd = {handleDragEnd} onDragStart = {handleDragStart}>
       {
         columns

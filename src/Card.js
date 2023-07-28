@@ -1,6 +1,4 @@
 import done from './done.svg';
-import {useState} from 'react';
-import cancel from './cancel.svg';
 import "use-context-menu/styles.css";
 import './App.css';
 function Card(props){

@@ -5,7 +5,6 @@ import AddCard from "./AddCard";
 import AddCardInput from "./AddCardInput";
 import "use-context-menu/styles.css";
 import { useContextMenu, ContextMenuItem } from "use-context-menu";
-import Draggable from "./Draggable";
 function Column(props) {
   let [isAdding, setIsAdding] = useState(false);
 

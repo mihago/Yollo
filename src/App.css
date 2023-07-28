@@ -226,15 +226,17 @@ background-color: rgb(115, 235, 115);
     }
   .card:hover .card__fixed-icon-wrapper{
     display: inline-block;
-    background-image: url("./cancel.svg");
+    background-image: url("./static/cancel.svg");
   }
   .card:hover .card__fixed-icon-wrapper:hover{
     display: inline-block;
-    background-image: url("./cancel_red.svg");
+    background-image: url("./static/cancel_red.svg");
   }
   body{
       background-color: rgba(254,92,0,0.1);
       margin-left: 18px;
+      overflow: hidden;
+ 
   }
   .card__icon-wrapper{
       border-radius: 50px;

@@ -1,9 +1,7 @@
 import './App.css';
-import Button from './Button';
 import {useState} from 'react';
-import done from './done_green.svg';
-import plus from './plus.svg';
-import cancel from './cancel_red.svg';
+import done from './static/done_green.svg';
+import cancel from './static/cancel_red.svg';
 function AddColumnInput(props){
     const [value, setValue] = useState("");
 return <div className = "AddColumnInput">

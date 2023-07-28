@@ -1,8 +1,6 @@
 import './App.css';
 import Button from './Button';
 import {useState} from 'react';
-import done from './done_black.svg';
-import plus from './plus_black.svg';
 function AddCardInput(props){
     const [value, setValue] = useState("");
 return <div className = "AddCardInput">
