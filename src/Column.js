@@ -1,10 +1,11 @@
 import { useState } from "react";
-import Card from "./Card";
+import DraggableCard from "./DraggableCard";
 import Header from "./Header";
 import AddCard from "./AddCard";
 import AddCardInput from "./AddCardInput";
 import "use-context-menu/styles.css";
 import { useContextMenu, ContextMenuItem } from "use-context-menu";
+import Draggable from "./Draggable";
 function Column(props) {
   let [isAdding, setIsAdding] = useState(false);
 
@@ -17,20 +18,28 @@ function Column(props) {
   );
 
   let cards = [];
-  for (let i of props.items.keys())
+  for (let i of props.items.keys()){
+  try{
     cards.push(
-      <Card
-        key={i}
+      <DraggableCard
         name={props.items.get(i).name}
         handleCompleting={() => {
+          console.log("fggggggggg");
           props.handleCompleting(i);
         }}
         handleDeleting={() => {
           props.handleCardDeleting(i);
         }}
         completed={props.items.get(i).completed}
+        id={i+","+props.id} key={i}
       />
     );
+  }
+  catch(e){
+console.log(i.toString());
+console.log(props.items);
+  }
+  }
 
   return (
     <>

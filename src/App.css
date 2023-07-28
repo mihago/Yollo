@@ -3,6 +3,24 @@
   
 
 }
+.card *{
+  z-index: 3;
+}
+.card__dragger{
+  position: absolute;
+  background-color: white;
+  margin-left: -20px;
+  width:400px;
+  z-index:1;
+  height:100px;
+  
+}
+.card_done .card__dragger{
+
+  background-color: rgb(182, 230, 165);
+
+  
+}
 .App{
   display: flex;
   gap:48px;/*(1)*/
@@ -173,6 +191,7 @@ background-color: rgb(115, 235, 115);
   flex-direction: column;
 }
 .card{
+  overflow: hidden;
   position: relative;
   margin-top: 12px;
   font-size: 18px;
@@ -235,7 +254,7 @@ background-color: rgb(115, 235, 115);
   }
   .card_done{
   
-      background-color:rgba(13, 210, 13, 0.3);
+      background-color:rgb(182, 230, 165);
       color: white;
   }
   .card__icon{

@@ -1,13 +1,16 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import AddColumn from "./AddColumn";
+import {DndContext} from '@dnd-kit/core';
 import "./App.css";
 import Column from "./Column";
 import AddColumnInput from "./AddColumnInput";
+import Droppable from "./Droppable";
 
 function App() {
   let [data, setData] = useState({
     
   });
+  let [draggableId, setDraggableId] = useState(null);
   useLayoutEffect(() => {
     async function fetchData() {
       fetch("http://localhost:3333/data")
@@ -53,15 +56,14 @@ function App() {
     //     return column;
     //   }
     // });
+
     let newData = structuredClone(data);
-    newData[index].cards.set(Date.now(), {
+    newData[index.toString()].cards.set(Date.now().toString(), {
       name: value,
       completed: false,
     });
-
     setData(newData);
     postData(newData);
-    
   }
   function handleCardDeleting(index, key) {
     // let newData = data.map((column) => {
@@ -120,33 +122,65 @@ function App() {
     setData(newData);
     postData(newData);
   }
+  function handleMoving(oldColumn,newColumn,card){
+    let newData = structuredClone(data)
+    console.log(oldColumn,newColumn,card);
+    if(oldColumn!=newColumn){
+      newData[newColumn.toString()].cards.set(card.toString(),structuredClone(data[oldColumn.toString()].cards.get(card.toString())));
+      newData[oldColumn.toString()].cards.delete(card.toString());
+     setData(newData);
+     postData(newData);
+    }
+     
+
+  }
+  function handleDragEnd(event){
+    if(event.over){
+      handleMoving(draggableId.split(",")[1],event.over.id,draggableId.split(",")[0]);
+    }
+    
+  }
+  function handleDragStart(event){
+
+    setDraggableId(event.active.id);
+  }
   let columns = [];
   for (let [ColumnKey, ColumnData] of Object.entries(data)) {
-    let elem = (
-      <Column
-        items={ColumnData.cards}
-        key={ColumnKey}
-        handleCardAdding={(value) => {
-          handleCardAdding(ColumnKey, value);
-        }}
-        handleCardDeleting={(key) => {
-          handleCardDeleting(ColumnKey, key);
-        }}
-        handleCompleting={(key) => {
-          handleCompleting(ColumnKey, key);
-          console.log("ggggg");
-        }}
-        handleColumnDeleting={() => {
-          handleColumnDeleting(ColumnKey);
-        }}
-        header={ColumnData.header}
-      />
-    );
+    let elem;
+    try{
+      elem = (
+        <Droppable key={ColumnKey} id={ColumnKey}><Column
+        id={ColumnKey}
+          items={ColumnData.cards}
+          handleCardAdding={(value) => {
+            handleCardAdding(ColumnKey, value);
+          }}
+          handleCardDeleting={(key) => {
+            handleCardDeleting(ColumnKey, key);
+          }}
+          handleCompleting={(key) => {
+            handleCompleting(ColumnKey, key);
+            console.log("ggggg");
+          }}
+          handleColumnDeleting={() => {
+            handleColumnDeleting(ColumnKey);
+          }}
+          header={ColumnData.header}
+        /></Droppable>
+      );
+    }
+    catch(e){
+console.log("Catched");
+    }
+
+    
     columns.push(elem);
   }
+
   return (
     //TODO:Handle adding
     <div className="App">
+      <DndContext onDragEnd = {handleDragEnd} onDragStart = {handleDragStart}>
       {
         columns
         /* {data.map((column, index) => {
@@ -193,7 +227,9 @@ function App() {
           }}
         />
       )}
+      </DndContext>
     </div>
+    
   );
 }
 
