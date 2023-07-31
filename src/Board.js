@@ -186,7 +186,7 @@ function Board(props) {
       <div
       className="Board"
       style={{
-        width: Math.max(columns.length * 340 + 300, window.screen.availWidth),
+        width: Math.max(columns.length * 340 + 360),
         height: "inherit",
         overflow: "hidden",
       }}
