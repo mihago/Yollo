@@ -3,9 +3,10 @@
   
 
 }
-html{
-  overflow-x:hidden;
+#root{
+  width: 100%;
 }
+
 .card *{
   z-index: 3;
 }
@@ -313,7 +314,7 @@ background-color: rgb(115, 235, 115);
   }
   body{
       background-color: rgba(254,92,0,0.1);
-      overflow-x: hidden;
+
  
   }
   .Main{
