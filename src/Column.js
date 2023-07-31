@@ -17,27 +17,27 @@ function Column(props) {
   );
 
   let cards = [];
-  for (let i of props.items.keys()){
-  try{
-    cards.push(
-      <DraggableCard
-        name={props.items.get(i).name}
-        handleCompleting={() => {
-          console.log("fggggggggg");
-          props.handleCompleting(i);
-        }}
-        handleDeleting={() => {
-          props.handleCardDeleting(i);
-        }}
-        completed={props.items.get(i).completed}
-        id={i+","+props.id} key={i}
-      />
-    );
-  }
-  catch(e){
-console.log(i.toString());
-console.log(props.items);
-  }
+  for (let i of props.items.keys()) {
+    try {
+      cards.push(
+        <DraggableCard
+          name={props.items.get(i).name}
+          handleCompleting={() => {
+            console.log("fggggggggg");
+            props.handleCompleting(i);
+          }}
+          handleDeleting={() => {
+            props.handleCardDeleting(i);
+          }}
+          completed={props.items.get(i).completed}
+          id={i + "," + props.id}
+          key={i}
+        />
+      );
+    } catch (e) {
+      console.log(i.toString());
+      console.log(props.items);
+    }
   }
 
   return (

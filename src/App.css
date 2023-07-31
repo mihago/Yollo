@@ -3,6 +3,9 @@
   
 
 }
+html{
+  overflow-x:hidden;
+}
 .card *{
   z-index: 3;
 }
@@ -21,8 +24,56 @@
 
   
 }
-.App{
+.Menu{
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
+  position: relative;
   display: flex;
+  height:48px;
+  align-items: flex-end;
+  width:100%;
+  padding: 8px 24px 8px 24px;
+  background-color: rgb(241, 222, 216);
+  
+}
+.Menu__brand{
+  font-size:24px;
+  line-height: 24px;
+  align-items: center;
+  color: black;
+  font-weight: 700;
+}
+.Menu__home-button{
+  line-height: 18px;
+  height: 18px;
+  font-size: 18px;
+  margin-left: 24px;
+  text-decoration: underline;
+  margin-bottom: 3px;
+  color: black;
+}
+.Menu__home-button:hover{
+  color:rgba(81, 81, 219, 0.7);
+}
+
+.Menu__header{
+position: absolute;
+
+margin: auto;
+font-size: 20px;
+height: 20px;
+line-height: 20px;
+	left: 0;
+	right: 0;
+  width: fit-content;
+  margin-bottom: 2px;
+  font-weight: 500;
+  
+}
+.Board{
+  margin-top: 24px;
+  display: flex;
+  margin-left: 18px;
   gap:48px;/*(1)*/
 }
 .useContextMenu_ContextMenu {
@@ -33,6 +84,34 @@
 .useContextMenu_ContextMenuItem {
 color: black !important;
 }
+.AddBoard{
+  display: flex;
+  grid-area:"add";
+  font-style: normal;
+  font-size: 20px;
+  padding: 12px 16px 8px 12px;
+  height: 85.6px;
+  border-radius: 12px;
+  font-size: 28px;
+  background-color: rgb(209, 209, 209);
+  line-height: 32px;
+  justify-content: space-between;
+}
+.AddBoardInput{
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px 12px;
+  height: 85.6px;
+  border-radius: 12px;
+
+  background-color: rgb(224, 224, 224);;
+  line-height: 32px;
+  justify-content: space-between;
+}
+
 .AddColumn{
   display: flex;
   align-items: center;
@@ -234,10 +313,80 @@ background-color: rgb(115, 235, 115);
   }
   body{
       background-color: rgba(254,92,0,0.1);
-      margin-left: 18px;
-      overflow: hidden;
+      overflow-x: hidden;
  
   }
+  .Main{
+    font-family: "Rubik",sans-serif;
+    display: flex;
+  }
+  .Main__header{
+    font-size: 36px;
+    font-style: italic;
+    width:500px;
+    margin-left: 24px;
+    position: fixed;
+    /*box-shadow: 5px 2px 5px;*/
+
+  }
+  .Main__header__brand{
+    font-style: normal;
+    width: fit-content;
+    margin-left:24px;
+
+  }
+  .Boards{
+    text-align: center;
+    flex-grow: 1;
+    margin-left: 600px;
+    padding: 0px 50px;
+    scroll-behavior: smooth;
+
+
+  }
+  .Boards__items{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+    /* margin-top: 80px; */ 
+  }
+  .Boards__header{
+    font-size:32px;
+    /* position: fixed;
+    width: 100%; 
+    background-color: rgba(254,92,0,0.1);*/
+  }
+  .BoardCard{
+    background-color: rgb(81, 219, 81);
+    border-radius: 12px;
+    padding: 12px 20px 40px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  .BoardCard__name{
+    font-size: 28px;
+    color:black;
+    
+  }
+  a{
+    text-decoration: none;
+  }
+  .BoardCard__menu{
+    height:32px;
+
+  }
+  .BoardCard__menu:hover{
+    height:32px;
+    background-color: rgba(0, 0, 0, 0.05);
+    
+  }
+        
+
+
   .card__icon-wrapper{
       border-radius: 50px;
      
