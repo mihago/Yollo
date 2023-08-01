@@ -12,6 +12,8 @@ function BoardCard(props) {
       </ContextMenuItem>
     </>
   );
+
+
   return (
     <div className="BoardCard" style={{ backgroundColor: props.bgColor }}>
       <div className="BoardCard__name">{props.children}</div>
@@ -25,5 +27,6 @@ function BoardCard(props) {
       {contextMenu}
     </div>
   );
+
 }
 export default BoardCard;

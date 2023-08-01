@@ -25,7 +25,7 @@ app.post("/data/boards", bodyParser.json(), (req, res) => {
 });
 
 app.post("/data", bodyParser.json(), (req, res) => {
-  if (req.body.type == "write") {
+  if (req.body.type === "write") {
     fs.writeFile(
       `./data_${req.body.id}.json`,
       JSON.stringify(req.body.data),

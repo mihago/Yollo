@@ -1,35 +1,31 @@
-import { useLayoutEffect, useState ,useReducer} from "react";
-import AddColumn from "./AddColumn";
-import { DndContext } from "@dnd-kit/core";
+import { useLayoutEffect, useState } from "react";
 import "./App.css";
-import Column from "./Column";
-import AddColumnInput from "./AddColumnInput";
-import Droppable from "./Droppable";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Board from "./Board";
 
-function App(props) {
+function App() {
   let [boards, setBoards] = useState(["js"]);
+
+
   useLayoutEffect(() => {
     async function fetchData() {
       console.log("tttt");
       fetch("http://localhost:3333/data/boards")
         .then((value) => {
-          console.log(value);
           return value.json();
         })
         .then((value) => {
           setBoards(value);
+        }).catch((e)=>{
+          console.log("Error in getting data to display all boards",e);
+
         });
     }
     fetchData();
   }, []);
-  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
-  function handleClick() {
-    forceUpdate();
-  }
+
   function postData(boards) {
     async function fetchData() {
       fetch("http://localhost:3333/data/boards", {
@@ -38,12 +34,13 @@ function App(props) {
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
-      }).catch(() => {
-        console.log("here");
+      }).catch((e) => {
+        console.log("Error in posting data about all boards",e);
       });
     }
     fetchData();
   }
+
 
   function handleAdding(value) {
     if (value==="") {
@@ -53,28 +50,28 @@ function App(props) {
     } else {
       let newBoards = boards;
       newBoards.push(value);
-      
       setBoards(newBoards);
       postData(newBoards);
-      handleClick();
     }
   }
+
+
   function handleDeleting(value) {
       let newBoards = boards;
       let i =newBoards.indexOf(value);
       newBoards.splice(i,1);
-      
       setBoards(newBoards);
       postData(newBoards);
-      handleClick();
   }
+
+
   return (
     <BrowserRouter>
       <Routes>
         {boards.map((item) => (
           <Route
-            path={`/boards/${item}`}
-            element={<Board id={item} />}
+            path={`/boards/:item`}
+            element={<Board />}
             key={item}
           />
         ))}

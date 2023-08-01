@@ -17,13 +17,14 @@ function Column(props) {
   );
 
   let cards = [];
+
+  
   for (let i of props.items.keys()) {
     try {
       cards.push(
         <DraggableCard
           name={props.items.get(i).name}
           handleCompleting={() => {
-            console.log("fggggggggg");
             props.handleCompleting(i);
           }}
           handleDeleting={() => {
