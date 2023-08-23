@@ -1,11 +1,13 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AddColumn from "./AddColumn";
 import { DndContext } from "@dnd-kit/core";
 import "./App.css";
 import Column from "./Column";
 import AddColumnInput from "./AddColumnInput";
 import Droppable from "./Droppable";
+import Loader from "./Loader";
 import Menu from "./Menu";
+import { Oval } from "react-loader-spinner";
 import {useParams} from 'react-router-dom';
 
 
@@ -18,7 +20,7 @@ function Board() {
   const { item } = useParams();
 
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function fetchData() {
       fetch("http://localhost:3333/data", {
         method:"POST",
@@ -58,6 +60,9 @@ function Board() {
         // Добавляем необходимые заголовки
         "Content-type": "application/json; charset=UTF-8",
       },
+    }).catch((e)=>{
+      console.log(e);
+      console.log("Ошибка при получении данных с сервера")
     });
   }
 
@@ -163,47 +168,65 @@ function Board() {
       );
     columns.push(elem);
   }
-
-  return (
-    //TODO:Handle adding
-    
-      <><Menu page = {item}></Menu>
-      <div
-      className="Board"
-      style={{
-        width: Math.max(columns.length * 340 + 360),
-        height: "inherit",
-        overflow: "hidden",
-      }}
-    >
-      <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
-        {
-          columns
-        }
-        {isColumnAdding ? (
-          <AddColumnInput
-            handleCancelAdding={() => {
-              setIsColumAdding(!isColumnAdding);
-            }}
-            handleColumnAdding={(value) => {
-              if (!value) {
-                alert("Введите название");
-              } else {
-                handleColumnAdding(value);
+  if(Object.keys(data).length!==0){
+    return (
+      //TODO:Handle adding
+      
+        <><Menu page = {item}></Menu>
+        <div
+        className="Board"
+        style={{
+          width: Math.max(columns.length * 340 + 360),
+          height: "inherit",
+          overflow: "hidden",
+        }}
+      >
+        <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+          {
+            columns
+          }
+          {isColumnAdding ? (
+            <AddColumnInput
+              handleCancelAdding={() => {
                 setIsColumAdding(!isColumnAdding);
-              }
-            }}
-          />
-        ) : (
-          <AddColumn
-            handleClick={() => {
-              setIsColumAdding(!isColumnAdding);
-            }}
-          />
-        )}
-      </DndContext>
-    </div></>
-  );
+              }}
+              handleColumnAdding={(value) => {
+                if (!value) {
+                  alert("Введите название");
+                } else {
+                  handleColumnAdding(value);
+                  setIsColumAdding(!isColumnAdding);
+                }
+              }}
+            />
+          ) : (
+            <AddColumn
+              handleClick={() => {
+                setIsColumAdding(!isColumnAdding);
+              }}
+            />
+          )}
+        </DndContext>
+      </div></>
+    );
+
+  }else{
+    return <div class="Loader"><Oval
+    height={80}
+    width={80}
+    color="#4fa94d"
+    wrapperStyle={{}}
+    wrapperClass=""
+    visible={true}
+    ariaLabel='oval-loading'
+    secondaryColor="#4fa94d"
+    strokeWidth={4}
+    strokeWidthSecondary={4}
+  
+  />
+  </div>
+  }
+  
 }
 
 export default Board;
